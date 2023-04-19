@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "461281360795",
+    "firebase_url": "https://voyage-f25dc-default-rtdb.firebaseio.com",
+    "project_id": "voyage-f25dc",
+    "storage_bucket": "voyage-f25dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461281360795:android:fdd0318f90ee46e3c9ff3e",
+        "android_client_info": {
+          "package_name": "com.example.keepup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461281360795-9jltg400b2j2rp066of4gl519iu86tkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiX1HxnBgu0PWYGVmxPn-Kja15jsJ46-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461281360795-9jltg400b2j2rp066of4gl519iu86tkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461281360795:android:2dbda7107b955275c9ff3e",
+        "android_client_info": {
+          "package_name": "com.example.travelassistanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461281360795-9jltg400b2j2rp066of4gl519iu86tkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiX1HxnBgu0PWYGVmxPn-Kja15jsJ46-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461281360795-9jltg400b2j2rp066of4gl519iu86tkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461281360795:android:951d8fc681f36788c9ff3e",
+        "android_client_info": {
+          "package_name": "com.example.voyage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461281360795-9jltg400b2j2rp066of4gl519iu86tkh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiX1HxnBgu0PWYGVmxPn-Kja15jsJ46-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461281360795-9jltg400b2j2rp066of4gl519iu86tkh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
