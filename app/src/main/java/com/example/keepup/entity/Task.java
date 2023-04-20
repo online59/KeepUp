@@ -1,7 +1,7 @@
 package com.example.keepup.entity;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-import org.jetbrains.annotations.Nullable;
 
 @Data
 public class Task {
@@ -11,24 +11,34 @@ public class Task {
     public static final int IN_ACTIVE = -1;
     public static final int CLOSE = 0;
 
+    @SerializedName("task_id")
     private int taskId;
+    @SerializedName("status")
     private int status;
+    @SerializedName("pre_id")
     private int preTaskId;
+    @SerializedName("post_id")
     private int nexTaskId;
-    private boolean urgent;
-    private boolean important;
+    @SerializedName("urgent")
+    private boolean isUrgent;
+    @SerializedName("important")
+    private boolean isImportant;
+    @SerializedName("title")
     private String title;
+    @SerializedName("detail")
     private String detail;
+    @SerializedName("deadline")
     private float deadline;
+    @SerializedName("start_date")
     private float startDate;
 
     public int getPriority() {
         int priority = 0;
-        if (urgent && important) {
+        if (isUrgent && isImportant) {
             priority = 4;
-        } else if (urgent && !important) {
+        } else if (isUrgent && !isImportant) {
             priority = 1;
-        } else if (!urgent && important) {
+        } else if (!isUrgent && isImportant) {
             priority = 3;
         } else {
             priority = 2;
