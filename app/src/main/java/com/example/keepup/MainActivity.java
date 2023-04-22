@@ -4,6 +4,9 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.keepup.adapter.TaskAdapter;
 import com.example.keepup.repository.RepositoryImpl;
 import com.example.keepup.data.model.Task;
 import com.example.keepup.service.FirebaseService;
@@ -16,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private Button addTaskButton;
     private TaskViewModel viewModel;
     private Task task;
+    private TaskAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,21 @@ public class MainActivity extends AppCompatActivity {
         setup();
 
         addTaskButton.setOnClickListener(onClickListener);
+
+        displayTaskList();
+    }
+
+    private void displayTaskList() {
+        recyclerView = findViewById(R.id.recycler_view);
+        adapter = new TaskAdapter();
+
+        viewModel.getAllTasks().observe(this, tasks -> {
+            adapter.setTaskList(tasks);
+        });
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapter);
     }
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
