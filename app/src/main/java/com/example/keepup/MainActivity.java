@@ -1,7 +1,6 @@
 package com.example.keepup;
 
 import android.view.View;
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,7 +9,7 @@ import com.example.keepup.adapter.TaskAdapter;
 import com.example.keepup.data.model.GeneralTask;
 import com.example.keepup.repository.RepositoryImpl;
 import com.example.keepup.data.model.Task;
-import com.example.keepup.service.FirebaseService;
+import com.example.keepup.service.FirebaseDataService;
 import com.example.keepup.viewmodel.TaskViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
 
             task.setTaskId(getUid());
-
+            task.setChainId(getUid());
             viewModel.addTask(task, String.valueOf(task.getTaskId()));
         }
     };
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("task");
         addTaskButton = findViewById(R.id.add_task_button);
-        viewModel = new TaskViewModel(new RepositoryImpl(new FirebaseService(reference)));
+        viewModel = new TaskViewModel(new RepositoryImpl(new FirebaseDataService(reference)));
 
         task = new GeneralTask();
 

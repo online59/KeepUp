@@ -5,7 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import com.example.keepup.data.model.GeneralTask;
 import com.example.keepup.repository.RepositoryImpl;
 import com.example.keepup.data.model.Task;
-import com.example.keepup.service.FirebaseService;
+import com.example.keepup.service.FirebaseDataService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class TaskViewModelTest {
     public void setup() {
         PowerMockito.mockStatic(Process.class);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("task");
-        viewModel = new TaskViewModel(new RepositoryImpl(new FirebaseService(reference)));
+        viewModel = new TaskViewModel(new RepositoryImpl(new FirebaseDataService(reference)));
     }
 
     @Test

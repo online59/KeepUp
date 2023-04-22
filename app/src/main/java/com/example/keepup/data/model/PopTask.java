@@ -1,7 +1,16 @@
 package com.example.keepup.data.model;
 
-public class GeneralTask extends Task{
+import com.google.gson.annotations.SerializedName;
+import lombok.Data;
 
+@Data
+public class PopTask extends Task {
+
+    @SerializedName("chain_id_list")
+    private int chainIdList;
+
+    @SerializedName("task")
+    private Task task;
 
     @Override
     public void pop(int id) {

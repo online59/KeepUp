@@ -3,8 +3,9 @@ package com.example.keepup.service;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.example.keepup.api.FirebaseAPI;
+import com.example.keepup.api.FirebaseDataAPI;
 import com.example.keepup.data.model.GeneralTask;
+import com.example.keepup.data.model.PopTask;
 import com.example.keepup.data.model.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,13 +16,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseService implements FirebaseAPI<Task> {
+public class FirebaseDataService implements FirebaseDataAPI<Task> {
 
     private final DatabaseReference databaseRef;
     private final MutableLiveData<List<Task>> taskListMutableLiveData;
     private final MutableLiveData<Task> taskMutableLiveData;
 
-    public FirebaseService(DatabaseReference databaseRef) {
+    public FirebaseDataService(DatabaseReference databaseRef) {
         this.databaseRef = databaseRef;
         taskListMutableLiveData = new MutableLiveData<>();
         taskMutableLiveData = new MutableLiveData<>();
@@ -34,7 +35,8 @@ public class FirebaseService implements FirebaseAPI<Task> {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<Task> taskList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    taskList.add(snap.getValue(GeneralTask.class));
+                    PopTask task = snap.getValue(PopTask.class);
+                    taskList.add(task.getTask());
                 }
                 taskListMutableLiveData.postValue(taskList);
             }
@@ -82,7 +84,7 @@ public class FirebaseService implements FirebaseAPI<Task> {
 
     @Override
     public void push(Task obj, String key) {
-        databaseRef.child(key).setValue(obj);
+        databaseRef.child("popTask").child(String.valueOf(obj.getChainId())).child(key).setValue(obj);
     }
 
 }

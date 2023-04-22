@@ -13,22 +13,34 @@ public abstract class Task {
 
     @SerializedName("task_id")
     private int taskId;
+
     @SerializedName("status")
     private int status;
+
+    @SerializedName("chain_id")
+    private int chainId;
+
     @SerializedName("pre_id")
     private int preTaskId;
+
     @SerializedName("post_id")
     private int nexTaskId;
+
     @SerializedName("urgent")
     private boolean isUrgent;
+
     @SerializedName("important")
     private boolean isImportant;
+
     @SerializedName("title")
     private String title;
+
     @SerializedName("detail")
     private String detail;
+
     @SerializedName("deadline")
     private float deadline;
+
     @SerializedName("start_date")
     private float startDate;
 
@@ -46,4 +58,9 @@ public abstract class Task {
 
         return priority;
     }
+
+    public abstract void pop(int id);
+    public abstract void push(int id);
+    public abstract int top();
+    public abstract int search();
 }
