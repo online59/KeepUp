@@ -1,7 +1,6 @@
 package com.example.keepup.viewmodel;
 
-import androidx.lifecycle.MutableLiveData;
-import com.example.keepup.entity.Task;
+import com.example.keepup.data.model.Task;
 import com.example.keepup.repository.Repository;
 
 public class TaskViewModel {

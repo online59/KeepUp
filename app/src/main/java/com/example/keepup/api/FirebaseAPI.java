@@ -1,6 +1,6 @@
 package com.example.keepup.api;
 
-import com.example.keepup.entity.Task;
+import com.example.keepup.data.model.Task;
 
 import java.util.List;
 

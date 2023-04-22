@@ -1,6 +1,6 @@
 package com.example.keepup.repository;
 
-import com.example.keepup.entity.Task;
+import com.example.keepup.data.model.Task;
 
 public interface Repository {
 

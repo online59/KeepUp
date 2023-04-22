@@ -2,10 +2,8 @@ package com.example.keepup.viewmodel;
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
-import androidx.test.runner.AndroidJUnit4;
-import com.example.keepup.di.RepositoryImpl;
-import com.example.keepup.entity.Task;
+import com.example.keepup.repository.RepositoryImpl;
+import com.example.keepup.data.model.Task;
 import com.example.keepup.service.FirebaseService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -13,13 +11,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
-
-import static org.mockito.Mockito.when;
 
 public class TaskViewModelTest {
 

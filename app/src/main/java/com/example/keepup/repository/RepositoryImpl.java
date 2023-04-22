@@ -1,6 +1,6 @@
-package com.example.keepup.di;
+package com.example.keepup.repository;
 
-import com.example.keepup.entity.Task;
+import com.example.keepup.data.model.Task;
 import com.example.keepup.repository.Repository;
 import com.example.keepup.service.FirebaseService;
 
@@ -14,7 +14,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void addTask(Task task) {
-        service.addTask(task);
+        service.getAllTasks();
     }
 
     @Override
