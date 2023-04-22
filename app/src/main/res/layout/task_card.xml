@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:text="@string/common_google_play_services_enable_title"
+              android:id="@+id/tv_title"
+              android:textStyle="bold"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintLeft_toLeftOf="parent"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+              android:text="@string/hide_bottom_view_on_scroll_behavior"
+              app:layout_constraintTop_toBottomOf="@id/tv_title"
+              app:layout_constraintLeft_toLeftOf="parent"
+              android:id="@+id/tv_details"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
