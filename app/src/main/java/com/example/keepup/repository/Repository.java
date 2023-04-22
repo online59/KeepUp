@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface Repository {
 
-    void addTask(Task task);
+    void addTask(Task task, String key);
 
     LiveData<Task> getTaskById(int id);
 

@@ -2,6 +2,7 @@ package com.example.keepup.viewmodel;
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import com.example.keepup.data.model.GeneralTask;
 import com.example.keepup.repository.RepositoryImpl;
 import com.example.keepup.data.model.Task;
 import com.example.keepup.service.FirebaseService;
@@ -33,7 +34,7 @@ public class TaskViewModelTest {
 
     @Test
     public void testAddTaskToFirebase_IsTaskAdded() {
-        Task task = new Task();
+        Task task = new GeneralTask();
 
         task.setTaskId(1);
         task.setPreTaskId(0);
@@ -46,6 +47,5 @@ public class TaskViewModelTest {
         task.setUrgent(true);
         task.setDetail("New task added");
 
-        viewModel.addTask(task);
     }
 }

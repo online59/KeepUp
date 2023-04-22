@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.example.keepup.api.FirebaseAPI;
+import com.example.keepup.data.model.GeneralTask;
 import com.example.keepup.data.model.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,13 +28,13 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<List<Task>> getAllTasks() {
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    public LiveData<List<Task>> getAll() {
+        databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<Task> taskList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    taskList.add(snap.getValue(Task.class));
+                    taskList.add(snap.getValue(GeneralTask.class));
                 }
                 taskListMutableLiveData.postValue(taskList);
             }
@@ -48,12 +49,12 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<Task> getTaskById(int id) {
+    public LiveData<Task> getById(int id) {
 
         databaseRef.child(String.valueOf(id)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                taskMutableLiveData.postValue(snapshot.getValue(Task.class));
+                taskMutableLiveData.postValue(snapshot.getValue(GeneralTask.class));
             }
 
             @Override
@@ -65,22 +66,22 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public void deleteAllTask() {
+    public void deleteAll() {
+        databaseRef.removeValue();
+    }
+
+    @Override
+    public void deleteById(int id) {
+        databaseRef.child(String.valueOf(id)).removeValue();
+    }
+
+    @Override
+    public void deleteChainById(int id) {
 
     }
 
     @Override
-    public void deleteTaskById(int id) {
-
-    }
-
-    @Override
-    public void deleteChainTaskById(int id) {
-
-    }
-
-    @Override
-    public void pushNewTask(Task obj, String key) {
+    public void push(Task obj, String key) {
         databaseRef.child(key).setValue(obj);
     }
 

@@ -16,8 +16,8 @@ public class TaskViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public void addTask(Task task) {
-        repository.addTask(task);
+    public void addTask(Task task, String key) {
+        repository.addTask(task, key);
     }
 
     public LiveData<List<Task>> getAllTasks() {

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
-public class Task {
+public abstract class Task {
 
     public static final int ACTIVE = 1;
     public static final int ON_HOLD = 99;

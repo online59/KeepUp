@@ -1,21 +1,20 @@
 package com.example.keepup.api;
 
 import androidx.lifecycle.LiveData;
-import com.example.keepup.data.model.Task;
 
 import java.util.List;
 
 public interface FirebaseAPI<T> {
 
-    LiveData<List<T>> getAllTasks();
+    LiveData<List<T>> getAll();
 
-    LiveData<T> getTaskById(int id);
+    LiveData<T> getById(int id);
 
-    void deleteAllTask();
+    void deleteAll();
 
-    void deleteTaskById(int id);
+    void deleteById(int id);
 
-    void deleteChainTaskById(int id);
+    void deleteChainById(int id);
 
-    void pushNewTask(T obj, String key);
+    void push(T obj, String key);
 }

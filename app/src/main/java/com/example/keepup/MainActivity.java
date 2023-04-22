@@ -7,16 +7,20 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.keepup.adapter.TaskAdapter;
+import com.example.keepup.data.model.GeneralTask;
 import com.example.keepup.repository.RepositoryImpl;
 import com.example.keepup.data.model.Task;
 import com.example.keepup.service.FirebaseService;
 import com.example.keepup.viewmodel.TaskViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button addTaskButton;
+    private FloatingActionButton addTaskButton;
     private TaskViewModel viewModel;
     private Task task;
     private TaskAdapter adapter;
@@ -50,16 +54,26 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            viewModel.addTask(task);
+
+            task.setTaskId(getUid());
+
+            viewModel.addTask(task, String.valueOf(task.getTaskId()));
         }
     };
+
+    private int getUid() {
+        Random random = new Random();
+        return random.nextInt();
+    }
 
     private void setup() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("task");
         addTaskButton = findViewById(R.id.add_task_button);
         viewModel = new TaskViewModel(new RepositoryImpl(new FirebaseService(reference)));
 
-        task.setTaskId(1);
+        task = new GeneralTask();
+
+
         task.setPreTaskId(0);
         task.setNexTaskId(99);
         task.setTitle("New Task");

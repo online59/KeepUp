@@ -10,6 +10,7 @@ import com.example.keepup.data.model.Task;
 import com.example.keepup.viewholder.TaskViewHolder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
@@ -17,10 +18,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private List<Task> taskList;
 
     public TaskAdapter() {
+        this.taskList = new ArrayList<>();
     }
 
     public void setTaskList(List<Task> taskList) {
+        this.taskList.clear();
         this.taskList = taskList;
+        notifyDataSetChanged();
     }
 
     @NonNull

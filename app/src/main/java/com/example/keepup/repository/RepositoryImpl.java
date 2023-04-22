@@ -1,33 +1,31 @@
 package com.example.keepup.repository;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+import com.example.keepup.api.FirebaseAPI;
 import com.example.keepup.data.model.Task;
-import com.example.keepup.repository.Repository;
-import com.example.keepup.service.FirebaseService;
 
 import java.util.List;
 
 public class RepositoryImpl implements Repository {
 
-    private final FirebaseService service;
+    private final FirebaseAPI<Task> service;
 
-    public RepositoryImpl(FirebaseService service) {
+    public RepositoryImpl(FirebaseAPI<Task> service) {
         this.service = service;
     }
 
     @Override
-    public void addTask(Task task) {
-        service.getAllTasks();
+    public void addTask(Task task, String key) {
+        service.push(task, key);
     }
 
     @Override
     public LiveData<Task> getTaskById(int id) {
-        return service.getTaskById(id);
+        return service.getById(id);
     }
 
     @Override
     public LiveData<List<Task>> getAllTasks() {
-        return service.getAllTasks();
+        return service.getAll();
     }
 }
