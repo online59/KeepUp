@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
         addTaskButton.setOnClickListener(onAddTaskClick);
 
-        displayTaskList();
+        displayActiveTasksInRecyclerView();
     }
 
-    private void displayTaskList() {
+    private void displayActiveTasksInRecyclerView() {
         recyclerView = findViewById(R.id.recycler_view);
         adapter = new TaskAdapter();
 
-        viewModel.readAll().observe(this, tasks -> {
+        viewModel.readAll("topStack").observe(this, tasks -> {
             adapter.setTaskList(tasks);
         });
 

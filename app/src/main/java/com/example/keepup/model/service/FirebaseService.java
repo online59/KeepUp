@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<List<Task>> readAll() {
+    public LiveData<List<Task>> readAll(@Nullable String key) {
 
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -53,7 +54,7 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<Task> readById(int id) {
+    public LiveData<Task> readById(int id, @Nullable String key) {
 
         databaseRef.child(String.valueOf(id)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -70,21 +71,18 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public void removeAll() {
+    public void removeAll(@Nullable String key) {
         databaseRef.removeValue();
     }
 
     @Override
-    public void removeById(int id) {
+    public void removeById(int id, @Nullable String key) {
         databaseRef.child(String.valueOf(id)).removeValue();
     }
 
-    @Override
-    public void removeChainById(int id) {
-    }
 
     @Override
-    public void write(Task obj, String key) {
+    public void write(Task obj, @Nullable String key) {
 
         databaseRef.child(key).setValue(obj);
     }

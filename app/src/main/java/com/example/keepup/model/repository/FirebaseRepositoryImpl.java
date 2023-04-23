@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import com.example.keepup.model.api.FirebaseAPI;
 import com.example.keepup.model.data.Task;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class FirebaseRepositoryImpl implements Repository {
@@ -15,17 +16,17 @@ public class FirebaseRepositoryImpl implements Repository {
     }
 
     @Override
-    public void write(Task task, String key) {
+    public void write(Task task, @Nullable String key) {
         service.write(task, key);
     }
 
     @Override
-    public LiveData<Task> readById(int id) {
-        return service.readById(id);
+    public LiveData<Task> readById(int id, @Nullable String key) {
+        return service.readById(id, key);
     }
 
     @Override
-    public LiveData<List<Task>> readAll() {
-        return service.readAll();
+    public LiveData<List<Task>> readAll(@Nullable String key) {
+        return service.readAll(key);
     }
 }
