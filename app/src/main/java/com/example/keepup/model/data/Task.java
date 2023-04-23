@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
-public abstract class Task {
+public class Task {
 
     public static final int ACTIVE = 1;
     public static final int ON_HOLD = 99;
@@ -59,8 +59,16 @@ public abstract class Task {
         return priority;
     }
 
-    public abstract void pop(int id);
-    public abstract void push(int id);
-    public abstract int top();
-    public abstract int search();
+    public void pop(int id) {
+
+    }
+    public void push(int id) {
+
+    }
+    public Task top(){
+        return null;
+    }
+    public Task search(){
+        return null;
+    }
 }

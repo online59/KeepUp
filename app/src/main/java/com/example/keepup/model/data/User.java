@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
-public abstract class User {
+public class User {
 
     @SerializedName("user_id")
     private int userId;
