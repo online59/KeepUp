@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public interface FirebaseDataAPI<T> {
+public interface FirebaseAPI<T> {
 
     LiveData<List<T>> getAll();
 

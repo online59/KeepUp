@@ -1,12 +1,10 @@
 package com.example.keepup.service;
 
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.example.keepup.api.FirebaseDataAPI;
+import com.example.keepup.api.FirebaseAPI;
 import com.example.keepup.data.model.GeneralTask;
-import com.example.keepup.data.model.PopTask;
 import com.example.keepup.data.model.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,29 +15,27 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseDataService implements FirebaseDataAPI<Task> {
+public class FirebaseChainService implements FirebaseAPI<Task> {
 
     private final DatabaseReference databaseRef;
     private final MutableLiveData<List<Task>> taskListMutableLiveData;
     private final MutableLiveData<Task> taskMutableLiveData;
 
-    public FirebaseDataService(DatabaseReference databaseRef) {
-        this.databaseRef = databaseRef;
+    public FirebaseChainService(DatabaseReference databaseRef) {
+        this.databaseRef = databaseRef.child("chainTask");
         taskListMutableLiveData = new MutableLiveData<>();
         taskMutableLiveData = new MutableLiveData<>();
     }
 
     @Override
     public LiveData<List<Task>> getAll() {
-        databaseRef.child("popTask").addValueEventListener(new ValueEventListener() {
+
+        databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<Task> taskList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
-                    PopTask task = snap.getValue(PopTask.class);
-                    System.out.println(task);
-                    Log.e("TAG", "onDataChange: " + task);
-                    taskList.add(task.getTask());
+                    taskList.add(snap.getValue(GeneralTask.class));
                 }
                 taskListMutableLiveData.postValue(taskList);
             }
@@ -67,6 +63,7 @@ public class FirebaseDataService implements FirebaseDataAPI<Task> {
 
             }
         });
+
         return taskMutableLiveData;
     }
 
@@ -82,12 +79,11 @@ public class FirebaseDataService implements FirebaseDataAPI<Task> {
 
     @Override
     public void deleteChainById(int id) {
-
+        databaseRef.child(String.valueOf(id)).removeValue();
     }
 
     @Override
     public void push(Task obj, String key) {
-        databaseRef.child("popTask").child(String.valueOf(obj.getChainId())).child(key).setValue(obj);
+        databaseRef.child(key).setValue(obj);
     }
-
 }
