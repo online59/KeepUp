@@ -1,15 +1,15 @@
-package com.example.keepup;
+package com.example.keepup.view;
 
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.keepup.adapter.TaskAdapter;
-import com.example.keepup.data.model.GeneralTask;
-import com.example.keepup.repository.StackRepositoryImpl;
-import com.example.keepup.data.model.Task;
-import com.example.keepup.service.FirebaseStackService;
+import com.example.keepup.view.adapter.TaskAdapter;
+import com.example.keepup.model.data.GeneralTask;
+import com.example.keepup.model.repository.StackRepositoryImpl;
+import com.example.keepup.model.data.Task;
+import com.example.keepup.model.service.FirebaseStackService;
 import com.example.keepup.viewmodel.TaskViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;

@@ -1,4 +1,4 @@
-package com.example.keepup.adapter;
+package com.example.keepup.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.keepup.R;
-import com.example.keepup.data.model.Task;
-import com.example.keepup.viewholder.TaskViewHolder;
+import com.example.keepup.model.data.Task;
+import com.example.keepup.view.viewholder.TaskViewHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

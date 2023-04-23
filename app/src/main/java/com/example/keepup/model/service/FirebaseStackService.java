@@ -1,11 +1,11 @@
-package com.example.keepup.service;
+package com.example.keepup.model.service;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import com.example.keepup.api.FirebaseAPI;
-import com.example.keepup.data.model.GeneralTask;
-import com.example.keepup.data.model.Task;
+import com.example.keepup.model.api.FirebaseAPI;
+import com.example.keepup.model.data.GeneralTask;
+import com.example.keepup.model.data.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +28,7 @@ public class FirebaseStackService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<List<Task>> getAll() {
+    public LiveData<List<Task>> readAll() {
 
         // Get data from top of the database stack
         databaseRef.addValueEventListener(new ValueEventListener() {
@@ -54,7 +54,7 @@ public class FirebaseStackService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<Task> getById(int id) {
+    public LiveData<Task> readById(int id) {
 
         databaseRef.child(String.valueOf(id)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -71,21 +71,21 @@ public class FirebaseStackService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public void deleteAll() {
+    public void removeAll() {
         databaseRef.removeValue();
     }
 
     @Override
-    public void deleteById(int id) {
+    public void removeById(int id) {
         databaseRef.child(String.valueOf(id)).removeValue();
     }
 
     @Override
-    public void deleteChainById(int id) {
+    public void removeChainById(int id) {
     }
 
     @Override
-    public void push(Task obj, String key) {
+    public void write(Task obj, String key) {
 
         // Add new task to the top of the database stack on its chain
         databaseRef.child(key).setValue(obj);

@@ -1,7 +1,7 @@
-package com.example.keepup.repository;
+package com.example.keepup.model.repository;
 
 import androidx.lifecycle.LiveData;
-import com.example.keepup.data.model.Task;
+import com.example.keepup.model.data.Task;
 
 import java.util.List;
 

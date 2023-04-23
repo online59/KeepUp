@@ -1,10 +1,9 @@
 package com.example.keepup.viewmodel;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.keepup.data.model.Task;
-import com.example.keepup.repository.Repository;
+import com.example.keepup.model.data.Task;
+import com.example.keepup.model.repository.Repository;
 
 import java.util.List;
 

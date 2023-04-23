@@ -1,4 +1,4 @@
-package com.example.keepup.data.model;
+package com.example.keepup.model.data;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.keepup.viewholder;
+package com.example.keepup.view.viewholder;
 
 import android.view.View;
 import android.widget.TextView;

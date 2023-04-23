@@ -1,4 +1,4 @@
-package com.example.keepup.data.model;
+package com.example.keepup.model.data;
 
 public class GeneralTask extends Task{
 
