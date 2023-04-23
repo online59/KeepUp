@@ -1,5 +1,6 @@
 package com.example.keepup.service;
 
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -30,12 +31,14 @@ public class FirebaseDataService implements FirebaseDataAPI<Task> {
 
     @Override
     public LiveData<List<Task>> getAll() {
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        databaseRef.child("popTask").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 List<Task> taskList = new ArrayList<>();
                 for (DataSnapshot snap: snapshot.getChildren()) {
                     PopTask task = snap.getValue(PopTask.class);
+                    System.out.println(task);
+                    Log.e("TAG", "onDataChange: " + task);
                     taskList.add(task.getTask());
                 }
                 taskListMutableLiveData.postValue(taskList);
