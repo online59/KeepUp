@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.keepup.view.adapter.TaskAdapter;
 import com.example.keepup.model.data.GeneralTask;
-import com.example.keepup.model.repository.StackRepositoryImpl;
+import com.example.keepup.model.repository.FirebaseRepositoryImpl;
 import com.example.keepup.model.data.Task;
-import com.example.keepup.model.service.FirebaseStackService;
+import com.example.keepup.model.service.FirebaseService;
 import com.example.keepup.viewmodel.TaskViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         setup();
 
-        addTaskButton.setOnClickListener(onClickListener);
+        addTaskButton.setOnClickListener(onAddTaskClick);
 
         displayTaskList();
     }
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         adapter = new TaskAdapter();
 
-        viewModel.getAllTasks().observe(this, tasks -> {
+        viewModel.readAll().observe(this, tasks -> {
             adapter.setTaskList(tasks);
         });
 
@@ -50,17 +50,21 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private final View.OnClickListener onClickListener = new View.OnClickListener() {
+    private final View.OnClickListener onAddTaskClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            task.setTaskId(getUid());
-            task.setChainId(getUid());
-            viewModel.addTask(task, String.valueOf(task.getChainId()));
+            task.setTaskId(generateRandomId());
+            task.setChainId(generateRandomId());
+            String stackPath = "topStack/" + task.getChainId();
+            String chainPath = "chainTask/" + task.getChainId() + task.getTaskId();
+
+            viewModel.write(task, stackPath);
+            viewModel.write(task, chainPath);
         }
     };
 
-    private int getUid() {
+    private int generateRandomId() {
         Random random = new Random();
         return random.nextInt();
     }
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private void setup() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("task");
         addTaskButton = findViewById(R.id.add_task_button);
-        viewModel = new TaskViewModel(new StackRepositoryImpl(new FirebaseStackService(reference)));
+        viewModel = new TaskViewModel(new FirebaseRepositoryImpl(new FirebaseService(reference)));
 
         // Add new task to topStack
         task = new GeneralTask();

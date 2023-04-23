@@ -15,15 +15,15 @@ public class TaskViewModel extends ViewModel {
         this.repository = repository;
     }
 
-    public void addTask(Task task, String key) {
-        repository.addTask(task, key);
+    public void write(Task task, String key) {
+        repository.write(task, key);
     }
 
-    public LiveData<List<Task>> getAllTasks() {
-        return repository.getAllTasks();
+    public LiveData<List<Task>> readAll() {
+        return repository.readAll();
     }
 
-    public LiveData<Task> getTaskById(int id) {
-        return repository.getTaskById(id);
+    public LiveData<Task> readById(int id) {
+        return repository.readById(id);
     }
 }

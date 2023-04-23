@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface Repository {
 
-    void addTask(Task task, String key);
+    void write(Task task, String key);
 
-    LiveData<Task> getTaskById(int id);
+    LiveData<Task> readById(int id);
 
-    LiveData<List<Task>> getAllTasks();
+    LiveData<List<Task>> readAll();
 }

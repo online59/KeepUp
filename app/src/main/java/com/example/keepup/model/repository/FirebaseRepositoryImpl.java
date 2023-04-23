@@ -6,26 +6,26 @@ import com.example.keepup.model.data.Task;
 
 import java.util.List;
 
-public class ChainRepositoryImpl implements Repository{
+public class FirebaseRepositoryImpl implements Repository {
 
     private final FirebaseAPI<Task> service;
 
-    public ChainRepositoryImpl(FirebaseAPI<Task> service) {
+    public FirebaseRepositoryImpl(FirebaseAPI<Task> service) {
         this.service = service;
     }
 
     @Override
-    public void addTask(Task task, String key) {
+    public void write(Task task, String key) {
         service.write(task, key);
     }
 
     @Override
-    public LiveData<Task> getTaskById(int id) {
+    public LiveData<Task> readById(int id) {
         return service.readById(id);
     }
 
     @Override
-    public LiveData<List<Task>> getAllTasks() {
+    public LiveData<List<Task>> readAll() {
         return service.readAll();
     }
 }

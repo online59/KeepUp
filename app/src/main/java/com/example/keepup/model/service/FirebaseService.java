@@ -15,14 +15,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirebaseStackService implements FirebaseAPI<Task> {
+public class FirebaseService implements FirebaseAPI<Task> {
 
     private final DatabaseReference databaseRef;
     private final MutableLiveData<List<Task>> taskListMutableLiveData;
     private final MutableLiveData<Task> taskMutableLiveData;
 
-    public FirebaseStackService(DatabaseReference databaseRef) {
-        this.databaseRef = databaseRef.child("topStack");
+    public FirebaseService(DatabaseReference databaseRef) {
+        this.databaseRef = databaseRef;
         taskListMutableLiveData = new MutableLiveData<>();
         taskMutableLiveData = new MutableLiveData<>();
     }
@@ -30,7 +30,6 @@ public class FirebaseStackService implements FirebaseAPI<Task> {
     @Override
     public LiveData<List<Task>> readAll() {
 
-        // Get data from top of the database stack
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -87,7 +86,6 @@ public class FirebaseStackService implements FirebaseAPI<Task> {
     @Override
     public void write(Task obj, String key) {
 
-        // Add new task to the top of the database stack on its chain
         databaseRef.child(key).setValue(obj);
     }
 
