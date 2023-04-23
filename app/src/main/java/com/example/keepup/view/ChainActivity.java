@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.keepup.R;
 import com.example.keepup.model.repository.FirebaseRepositoryImpl;
 import com.example.keepup.model.service.FirebaseService;
 import com.example.keepup.view.adapter.TaskAdapter;

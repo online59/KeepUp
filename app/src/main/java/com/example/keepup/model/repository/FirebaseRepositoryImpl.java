@@ -10,7 +10,7 @@ import java.util.List;
 public class FirebaseRepositoryImpl implements Repository {
 
     private final FirebaseAPI<Task> service;
-it a
+
     public FirebaseRepositoryImpl(FirebaseAPI<Task> service) {
         this.service = service;
     }

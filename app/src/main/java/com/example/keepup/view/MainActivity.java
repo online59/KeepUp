@@ -1,11 +1,13 @@
 package com.example.keepup.view;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.keepup.R;
 import com.example.keepup.view.adapter.TaskAdapter;
 import com.example.keepup.model.data.GeneralTask;
 import com.example.keepup.model.repository.FirebaseRepositoryImpl;
@@ -46,12 +48,14 @@ public class MainActivity extends AppCompatActivity {
         viewModel.readAll("topStack").observe(this, tasks -> {
             adapter.setTaskList(tasks);
 
+            Log.e("TAG", "displayActiveTasksInRecyclerView: " + tasks.get(0).getTaskId() );
+
             adapter.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void setOnItemClick(int position) {
                     Intent intent = new Intent(MainActivity.this, ChainActivity.class);
                     intent.putExtra("chain_id", tasks.get(position).getChainId());
-                    MainActivity.this.startActivities(intent);
+                    MainActivity.this.startActivity(intent);
                 }
             });
         });
