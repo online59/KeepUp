@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.keepup.R;
 import com.example.keepup.model.data.Task;
+import com.example.keepup.view.event.ItemClickListener;
 import com.example.keepup.view.viewholder.TaskViewHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     private List<Task> taskList;
+    private ItemClickListener itemClickListener;
 
     public TaskAdapter() {
         this.taskList = new ArrayList<>();
@@ -25,6 +27,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         this.taskList.clear();
         this.taskList = taskList;
         notifyDataSetChanged();
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -40,6 +46,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         Task task = taskList.get(position);
         holder.getTitle().setText(task.getTitle());
         holder.getDetails().setText(task.getDetail());
+
+        // Set item click on view holder
+        holder.setItemClickListener(itemClickListener);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.keepup.view;
 
+import android.content.Intent;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import com.example.keepup.model.data.GeneralTask;
 import com.example.keepup.model.repository.FirebaseRepositoryImpl;
 import com.example.keepup.model.data.Task;
 import com.example.keepup.model.service.FirebaseService;
+import com.example.keepup.view.event.ItemClickListener;
 import com.example.keepup.viewmodel.TaskViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.readAll("topStack").observe(this, tasks -> {
             adapter.setTaskList(tasks);
+
+            adapter.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void setOnItemClick(int position) {
+                    Intent intent = new Intent(MainActivity.this, ChainActivity.class);
+                    intent.putExtra("chain_id", tasks.get(position).getChainId());
+                    MainActivity.this.startActivities(intent);
+                }
+            });
         });
 
         recyclerView.setHasFixedSize(true);
