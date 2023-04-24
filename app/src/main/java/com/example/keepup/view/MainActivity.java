@@ -1,11 +1,10 @@
 package com.example.keepup.view;
 
-import android.content.Intent;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.keepup.R;
 import com.example.keepup.view.adapter.TaskAdapter;
@@ -13,11 +12,17 @@ import com.example.keepup.model.data.GeneralTask;
 import com.example.keepup.model.repository.FirebaseRepositoryImpl;
 import com.example.keepup.model.data.Task;
 import com.example.keepup.model.service.FirebaseService;
-import com.example.keepup.view.event.ItemClickListener;
+import com.example.keepup.view.ui.GroupFragment;
+import com.example.keepup.view.ui.HomeFragment;
+import com.example.keepup.view.ui.ProfileFragment;
+import com.example.keepup.view.ui.TaskFragment;
 import com.example.keepup.viewmodel.TaskViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -38,29 +43,47 @@ public class MainActivity extends AppCompatActivity {
 
         addTaskButton.setOnClickListener(onAddTaskClick);
 
-        displayActiveTasksInRecyclerView();
+        setupBottomNavBar();
     }
 
-    private void displayActiveTasksInRecyclerView() {
-        recyclerView = findViewById(R.id.recycler_view);
-        adapter = new TaskAdapter();
+    private void setupBottomNavBar() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(onNavItemSelected);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+    }
 
-        viewModel.readAll("topStack").observe(this, tasks -> {
-            adapter.setTaskList(tasks);
-            adapter.setItemClickListener(new ItemClickListener() {
+    private final NavigationBarView.OnItemSelectedListener onNavItemSelected =
+            new NavigationBarView.OnItemSelectedListener() {
                 @Override
-                public void setOnItemClick(int position) {
-                    Intent intent = new Intent(MainActivity.this, ChainActivity.class);
-                    intent.putExtra("chain_id", tasks.get(position).getChainId());
-                    MainActivity.this.startActivity(intent);
-                }
-            });
-        });
+                public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.home:
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.ui_container, HomeFragment.getInstance())
+                                    .commit();
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(adapter);
-    }
+                        case R.id.task:
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.ui_container, TaskFragment.getInstance())
+                                    .commit();
+
+                        case R.id.group:
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.ui_container, GroupFragment.getInstance())
+                                    .commit();
+
+                        case R.id.profile:
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.ui_container, ProfileFragment.getInstance())
+                                    .commit();
+                    }
+                    return false;
+                }
+            };
 
     private final View.OnClickListener onAddTaskClick = new View.OnClickListener() {
         @Override
@@ -69,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             task.setTaskId(generateRandomId());
             task.setChainId(generateRandomId());
             String stackPath = "topStack/" + task.getChainId();
-            String chainPath = "chainTask/" + task.getChainId() + "/" + task.getTaskId();
+            String chainPath = "historyTask/" + task.getChainId() + "/" + task.getTaskId();
 
             viewModel.write(task, stackPath);
             viewModel.write(task, chainPath);
@@ -82,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setup() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("task");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("task");
         addTaskButton = findViewById(R.id.add_task_button);
-        viewModel = new TaskViewModel(new FirebaseRepositoryImpl(new FirebaseService(reference)));
+        viewModel = new TaskViewModel(new FirebaseRepositoryImpl(new FirebaseService(databaseReference)));
 
         // Add new task to topStack
         task = new GeneralTask();

@@ -50,4 +50,10 @@ public class ChainActivity extends AppCompatActivity {
 
         chainId = getIntent().getIntExtra("chain_id", 0);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }
