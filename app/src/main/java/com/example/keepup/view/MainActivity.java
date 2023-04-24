@@ -62,24 +62,28 @@ public class MainActivity extends AppCompatActivity {
                                     .beginTransaction()
                                     .replace(R.id.ui_container, HomeFragment.getInstance())
                                     .commit();
+                            return true;
 
                         case R.id.task:
                             getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.ui_container, TaskFragment.getInstance())
                                     .commit();
+                            return true;
 
                         case R.id.group:
                             getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.ui_container, GroupFragment.getInstance())
                                     .commit();
+                            return true;
 
                         case R.id.profile:
                             getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.ui_container, ProfileFragment.getInstance())
                                     .commit();
+                            return true;
                     }
                     return false;
                 }
