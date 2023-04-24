@@ -18,7 +18,7 @@ public class ChainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TaskAdapter adapter;
     private TaskViewModel viewModel;
-    private String chainId;
+    private int chainId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,6 @@ public class ChainActivity extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("task");
         viewModel = new TaskViewModel(new FirebaseRepositoryImpl(new FirebaseService(reference)));
 
-        chainId = getIntent().getStringExtra("chain_id");
+        chainId = getIntent().getIntExtra("chain_id", 0);
     }
 }

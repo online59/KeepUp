@@ -16,17 +16,17 @@ public class FirebaseRepositoryImpl implements Repository {
     }
 
     @Override
-    public void write(Task task, @Nullable String key) {
+    public void write(Task task, String key) {
         service.write(task, key);
     }
 
     @Override
-    public LiveData<Task> readById(int id, @Nullable String key) {
+    public LiveData<Task> readById(int id, String key) {
         return service.readById(id, key);
     }
 
     @Override
-    public LiveData<List<Task>> readAll(@Nullable String key) {
+    public LiveData<List<Task>> readAll(String key) {
         return service.readAll(key);
     }
 }

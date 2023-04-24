@@ -29,9 +29,9 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<List<Task>> readAll(@Nullable String key) {
+    public LiveData<List<Task>> readAll(String key) {
 
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        databaseRef.child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
 
@@ -54,9 +54,9 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public LiveData<Task> readById(int id, @Nullable String key) {
+    public LiveData<Task> readById(int id, String key) {
 
-        databaseRef.child(String.valueOf(id)).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseRef.child(key).child(String.valueOf(id)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 taskMutableLiveData.postValue(snapshot.getValue(GeneralTask.class));
@@ -71,18 +71,18 @@ public class FirebaseService implements FirebaseAPI<Task> {
     }
 
     @Override
-    public void removeAll(@Nullable String key) {
-        databaseRef.removeValue();
+    public void removeAll(String key) {
+        databaseRef.child(key).removeValue();
     }
 
     @Override
-    public void removeById(int id, @Nullable String key) {
-        databaseRef.child(String.valueOf(id)).removeValue();
+    public void removeById(int id, String key) {
+        databaseRef.child(key).child(String.valueOf(id)).removeValue();
     }
 
 
     @Override
-    public void write(Task obj, @Nullable String key) {
+    public void write(Task obj, String key) {
 
         databaseRef.child(key).setValue(obj);
     }

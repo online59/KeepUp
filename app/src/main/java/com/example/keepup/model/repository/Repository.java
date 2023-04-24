@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface Repository {
 
-    void write(Task task, @Nullable String key);
+    void write(Task task, String key);
 
-    LiveData<Task> readById(int id, @Nullable String key);
+    LiveData<Task> readById(int id, String key);
 
-    LiveData<List<Task>> readAll(@Nullable String key);
+    LiveData<List<Task>> readAll(String key);
 }

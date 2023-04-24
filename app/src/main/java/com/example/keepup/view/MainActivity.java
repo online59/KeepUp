@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel.readAll("topStack").observe(this, tasks -> {
             adapter.setTaskList(tasks);
-
-            Log.e("TAG", "displayActiveTasksInRecyclerView: " + tasks.get(0).getTaskId() );
-
             adapter.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void setOnItemClick(int position) {
@@ -72,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             task.setTaskId(generateRandomId());
             task.setChainId(generateRandomId());
             String stackPath = "topStack/" + task.getChainId();
-            String chainPath = "chainTask/" + task.getChainId() + task.getTaskId();
+            String chainPath = "chainTask/" + task.getChainId() + "/" + task.getTaskId();
 
             viewModel.write(task, stackPath);
             viewModel.write(task, chainPath);
